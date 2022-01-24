@@ -1,0 +1,48 @@
+.dialog {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+        background-color: #8774e1;
+    }
+}
+
+.dialog--active {
+    background-color: #8774e1;
+}
+
+.dialog__avatar {
+    margin-right: 10px;
+
+    img {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+    }
+}
+
+.dialog__info {
+    width: 100%;
+}
+
+.dialog__info-top {
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialog__info-date {    
+    font-size: 12px;
+}
+
+.dialog__info-title {
+    font-size: 20px;
+    font-weight: 700;
+}

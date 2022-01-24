@@ -1,0 +1,29 @@
+.chat__form {
+    background-color: #212121;
+    padding: 10px;
+    display: flex;
+    border-radius: 10px;
+}
+
+.chat__form-field {
+    background-color: #212121;
+    margin: 0 15px;
+
+    &:hover,
+    &:focus {
+        border-color: transparent;
+    }
+}
+
+.chat__form-icon {
+
+    &:hover {
+
+        svg {
+
+            path {
+                fill: #8774e1;
+            }
+        }
+    }
+}

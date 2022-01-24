@@ -1,0 +1,12 @@
+.input {
+    background-color: #0F0F0F;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+
+    &:hover,
+    &:focus {
+        border-color: #8774e1;
+    }
+}
