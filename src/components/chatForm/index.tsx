@@ -1,14 +1,34 @@
 import React from 'react';
 
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { sendMessage } from '../../store/slices/messagesSlice';
+
 import { Input } from '../ui/input';
 
 import './chat-form.scss'
 
-export const ChatForm = () => {
+export const ChatForm: React.FC = () => {
     const [value, setValue] = React.useState('')
+    const uid = 'uCKnhsvh3chi7lddbqVp7Vbufl32'
+    const dialogId = useAppSelector(store => store.dialogId.id)
+    const dispatch = useAppDispatch()
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (value.trim()) {
+            dispatch(sendMessage({
+                id: dialogId,
+                value,
+                uid
+            }))
+
+            setValue('')
+        }
+    }
 
     return (
-        <form className="chat__form" onSubmit={(e) => e.preventDefault()}>
+        <form className="chat__form" onSubmit={(e) => handleSubmit(e)}>
             <button className='chat__form-icon chat__form-attachment'>
                 <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13.4649 23.8718C10.3703 26.7216 5.39452 26.7103 2.31714 23.832C-0.759359 20.9553 -0.771482 16.3004 2.27574 13.4058L2.27318 13.4042L13.4667 2.93498L14.8666 1.62619C17.1849 -0.542064 20.9429 -0.542064 23.2612 1.62619C25.5796 3.79445 25.5796 7.30965 23.2612 9.47874L10.9223 20.8993L10.918 20.8961C9.39739 22.2673 6.97377 22.2576 5.4713 20.8595C3.96883 19.4605 3.95936 17.2054 5.43246 15.7918L5.42813 15.7869L6.80207 14.5098L13.6719 8.1188L15.045 9.39751L6.80207 17.0656C6.04305 17.7708 6.04305 18.9154 6.80207 19.6213C7.56109 20.3273 8.79183 20.3273 9.54996 19.6213L21.8621 8.16828L21.8586 8.16586L21.9052 8.12845C23.4509 6.6832 23.4509 4.33865 21.9052 2.89348C20.3596 1.44832 17.8549 1.44823 16.3093 2.89348L16.2679 2.93739L16.2653 2.93572L14.8664 4.24368L3.67216 14.713C1.3538 16.8812 1.3538 20.3964 3.67216 22.5647C5.99052 24.7329 9.74935 24.7329 12.0659 22.5647L21.8605 13.4042L23.2595 12.0962L24.6584 13.4042L23.2595 14.713L13.4667 23.8735C13.4667 23.8734 13.4649 23.8718 13.4649 23.8718Z" fill="#A09BB1" />

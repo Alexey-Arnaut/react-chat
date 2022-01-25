@@ -1,11 +1,14 @@
 import React from 'react';
 
+import moment from 'moment';
+import 'moment/locale/ru'
+
 import { IMessage } from './interface';
 
 import './message.scss'
 
-export const Message: React.FC<IMessage> = ({ from, date, text, pictures }) => {
-    const uid = '2'
+export const Message: React.FC<IMessage> = ({ from, text, pictures, createdAt }) => {
+    const uid = 'uCKnhsvh3chi7lddbqVp7Vbufl32'
 
     return (
         <div className={`chat__message ${uid === from ? 'own' : ''}`}>
@@ -36,7 +39,7 @@ export const Message: React.FC<IMessage> = ({ from, date, text, pictures }) => {
                         ))}
                     </div>
                 }
-                <div className="chat__message-date">{date}</div>
+                <div className="chat__message-date">{moment(new Date(createdAt * 1000)).format('LT')}</div>
             </div>
         </div>
     );

@@ -5,7 +5,7 @@ import { Messages } from '../messages';
 
 import './chat.scss'
 
-export const Chat = () => {
+export const Chat: React.FC = () => {
   return (
     <div className='chat'>
       <Messages />

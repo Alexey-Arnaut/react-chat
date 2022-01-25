@@ -3,5 +3,5 @@ export interface IDialog {
     name: string,
     avatar: string,
     lastMessage: string
-    date: string
+    createdAt: string
 }

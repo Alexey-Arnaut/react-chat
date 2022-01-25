@@ -1,55 +1,37 @@
 import React from 'react';
 
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { getMessages } from '../../store/slices/messagesSlice';
+
 import { Message } from '../message';
+import { Information } from '../information';
 
 import './messages.scss'
 
-export const Messages = () => {
-    const chatRef = React.useRef<any>()
+export const Messages: React.FC = () => {
+    const chatRef = React.useRef<HTMLDivElement>(null)
+    const { id } = useParams()
+    const dispatch = useAppDispatch()
+    const messages = useAppSelector(state => state.messages.messages)
 
     React.useEffect(() => {
-        chatRef.current.scrollTop = chatRef.current.scrollHeight
-    }, [])
-
-    const messages = [
-        {
-            id: '1',
-            from: '1',
-            to: '2',
-            date: '12:02',
-            text: 'Lorem ipsum dolor sit amet.'
-        },
-        {
-            id: '2',
-            from: '1',
-            to: '2',
-            date: '12:02',
-            text: 'Lorem, ipsum dolor..',
-            pictures: [
-                'https://4lapki.com/wp-content/uploads/2020/10/Screenshot_7-1.jpg',
-            ]
-        },
-        {
-            id: '3',
-            from: '2',
-            to: '1',
-            date: '12:10',
-            text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis, dicta ipsa officia recusandae ut dolores iste cupiditate alias doloribus quisquam.'
-        },
-        {
-            id: '4',
-            from: '1',
-            to: '2',
-            date: '12:12',
-            text: 'Lorem ipsum dolor, sit amet consectetur adipisicing.'
+        if (chatRef.current) {
+            chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
-    ]
+        if (id) {
+            dispatch(getMessages(id))
+        }
+    }, [id])
 
     return (
         <div className='chat__messages' ref={chatRef}>
-            {messages.map(message => (
-                <Message {...message} key={message.id} />
-            ))}
+            {
+                messages.length ? messages.map((message, index) => (
+                    <Message {...message} key={index} />
+                ))
+                    :
+                    <Information text='Начните диалог' className='chat__messages-information' />}
         </div>
     );
 };

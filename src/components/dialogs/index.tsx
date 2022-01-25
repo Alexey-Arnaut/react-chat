@@ -5,7 +5,7 @@ import { Dialog } from '../dialog';
 
 import './dialogs.scss'
 
-export const Dialogs = () => {
+export const Dialogs: React.FC = () => {
   const [value, setValue] = React.useState('')
 
   const dialogs = [
@@ -14,14 +14,14 @@ export const Dialogs = () => {
       name: 'Angelina Jolie',
       avatar: 'https://i.pinimg.com/736x/17/1f/cb/171fcb073e4c2fab5394fe9713a28c3d--long-wavy-hairstyles-celebrity-hairstyles.jpg',
       lastMessage: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
-      date: '12:12'
+      createdAt: '12:12'
     },
     {
       id: "NOhnEGoXCbaT45mB3HtMzSmFS3k1",
       name: 'Chris Hemsworth',
       avatar: 'https://is2-ssl.mzstatic.com/image/thumb/RjJixx3neQmuD4_UP2lhOg/550x550ve.jpg',
       lastMessage: 'Lorem ipsum dolor sit amet.',
-      date: '11:10'
+      createdAt: '11:10'
     }
   ]
 
