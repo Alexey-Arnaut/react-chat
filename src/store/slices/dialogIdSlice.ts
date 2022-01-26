@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const dialogId = createSlice({
-    name: 'selectedDialogSlice',
+const dialogIdSlice = createSlice({
+    name: 'dialogIdSlice',
     initialState: {
         id: null
     },
@@ -12,5 +12,5 @@ const dialogId = createSlice({
     }
 })
 
-export const { selectedDialog } = dialogId.actions
-export default dialogId.reducer
+export const { selectedDialog } = dialogIdSlice.actions
+export default dialogIdSlice.reducer

@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getMessages } from '../../store/slices/messagesSlice';
 
-import { Message } from '../message';
-import { Information } from '../information';
+import { Message } from './message';
+import { Information } from '../ui/information';
 
 import './messages.scss'
 

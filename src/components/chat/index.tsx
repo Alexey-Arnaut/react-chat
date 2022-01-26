@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ChatForm } from '../chatForm';
+import { ChatForm } from './chatForm';
 import { Messages } from '../messages';
 
 import './chat.scss'

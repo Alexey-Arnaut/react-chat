@@ -1,0 +1,16 @@
+.button {
+    width: 100%;
+    padding: 15px 0;
+    background-color: #0F0F0F;
+    border-radius: 10px;
+    font-weight: 700;
+    position: relative;
+
+    &:hover {
+        background-color: #8774e1;
+    }
+
+    &:active {
+        bottom: -1px;
+    }
+}

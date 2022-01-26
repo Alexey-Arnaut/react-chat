@@ -1,12 +1,10 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { selectedDialog } from '../../store/slices/dialogId';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { selectedDialog } from '../../../store/slices/dialogIdSlice';
 
 import { IDialog } from './interface'
-
-import './dialog.scss'
 
 export const Dialog: React.FC<IDialog> = ({ id, avatar, name, lastMessage, createdAt }) => {
     const dispatch = useAppDispatch()

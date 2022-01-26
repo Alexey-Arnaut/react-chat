@@ -5,8 +5,6 @@ import 'moment/locale/ru'
 
 import { IMessage } from './interface';
 
-import './message.scss'
-
 export const Message: React.FC<IMessage> = ({ from, text, pictures, createdAt }) => {
     const uid = 'uCKnhsvh3chi7lddbqVp7Vbufl32'
 

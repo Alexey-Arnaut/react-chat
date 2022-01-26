@@ -1,15 +1,13 @@
 import React from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { sendMessage } from '../../store/slices/messagesSlice';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { sendMessage } from '../../../store/slices/messagesSlice';
 
-import { Input } from '../ui/input';
-
-import './chat-form.scss'
+import { Input } from '../../ui/input';
 
 export const ChatForm: React.FC = () => {
     const [value, setValue] = React.useState('')
-    const uid = 'uCKnhsvh3chi7lddbqVp7Vbufl32'
+    const uid = useAppSelector(state => state.auth.uid)
     const dialogId = useAppSelector(store => store.dialogId.id)
     const dispatch = useAppDispatch()
 

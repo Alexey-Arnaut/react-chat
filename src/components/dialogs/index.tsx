@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Input } from '../ui/input';
-import { Dialog } from '../dialog';
+import { Dialog } from './dialog';
 
 import './dialogs.scss'
 

@@ -3,5 +3,6 @@ export interface IInput {
     placeholder: string,
     value: string,
     setValue: (e: string) => void,
-    className?: string
+    className?: string,
+    required?: boolean
 }

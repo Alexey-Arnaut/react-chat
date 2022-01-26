@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 
 import { Dialogs } from '../../components/dialogs';
 import { Chat } from '../../components/chat';
-import { Information } from '../../components/information';
+import { Information } from '../../components/ui/information';
 
 import './home.scss'
 
