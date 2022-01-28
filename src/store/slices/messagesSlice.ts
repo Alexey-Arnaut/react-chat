@@ -2,47 +2,52 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { db } from "../../firebase";
 import { collection, onSnapshot, orderBy, query, addDoc, Timestamp } from 'firebase/firestore';
-
 interface IGetMessages {
     from: string,
     to: string,
     text: string,
     createdAt: number,
     id: string,
+    pictures: string
 }
 
 export const getMessages = createAsyncThunk(
     'messages/getMessages',
-    async (id: string, { dispatch }) => {
-        const msgsRef = collection(db, 'messages', id, 'chat')
+    async ({ id, uid }: any, { dispatch }) => {
+        const selectChat = uid > id ? `${uid + id}` : `${id + uid}`
 
-        onSnapshot(query(msgsRef, orderBy('createdAt', 'asc')), querySnapshot => {
+        onSnapshot(query(collection(db, 'messages', selectChat, 'chat'), orderBy('createdAt', 'asc')), querySnapshot => {
             const data: IGetMessages[] = []
 
             querySnapshot.forEach(doc => {
-                const { createdAt, from, to, text } = doc.data()
+                const { createdAt, from, to, text, pictures } = doc.data()
 
                 data.push({
-                    from: from,
-                    to: to,
-                    text: text,
+                    from,
+                    to,
+                    text,
                     createdAt: createdAt.seconds,
-                    id: doc.id
+                    id: doc.id,
+                    pictures
                 })
             })
             dispatch(messages(data))
         })
+
     }
 )
 
 export const sendMessage = createAsyncThunk(
     'messages/sendMessage',
-    async ({ id, value, uid }: any) => {
-        await addDoc(collection(db, 'messages', id, 'chat'), {
+    async ({ id, value, uid, pictures }: any) => {
+        const selectChat = uid > id ? `${uid + id}` : `${id + uid}`
+
+        await addDoc(collection(db, 'messages', selectChat, 'chat'), {
             text: value,
             from: uid,
             to: id,
-            createdAt: Timestamp.fromDate(new Date())
+            createdAt: Timestamp.fromDate(new Date()),
+            pictures: pictures
         })
     }
 )
@@ -50,7 +55,7 @@ export const sendMessage = createAsyncThunk(
 const messagesSlice = createSlice({
     name: 'messages',
     initialState: {
-        messages: []
+        messages: [],
     },
     reducers: {
         messages(state, action) {

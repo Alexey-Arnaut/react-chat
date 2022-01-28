@@ -14,13 +14,14 @@ export const Messages: React.FC = () => {
     const { id } = useParams()
     const dispatch = useAppDispatch()
     const messages = useAppSelector(state => state.messages.messages)
+    const uid = useAppSelector(state => state.auth.uid)
 
     React.useEffect(() => {
         if (chatRef.current) {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
-        if (id) {
-            dispatch(getMessages(id))
+        if (id && uid) {
+            dispatch(getMessages(({ id, uid })))
         }
     }, [id])
 

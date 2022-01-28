@@ -6,15 +6,24 @@ import { IInput } from './interface'
 
 import './input.scss'
 
-export const Input: React.FC<IInput> = ({ type, placeholder, className, value, setValue, required }) => {
+export const Input: React.FC<IInput> = ({
+    type,
+    placeholder,
+    className,
+    value,
+    setValue,
+    required,
+    id
+}) => {
     return (
         <input
             type={type ? type : 'text'}
             placeholder={placeholder}
             className={classNames('input', className)}
             value={value}
-            onChange={e => setValue(e.target.value)}
+            onChange={(e) => setValue(e.target.value)}
             required={required ? true : false}
+            id={id}
         />
     );
 };

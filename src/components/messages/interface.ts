@@ -4,3 +4,7 @@ export interface IMessage {
     pictures?: string[],
     createdAt: number,
 }
+
+export interface IMessagePictures {
+    pictures: string[]
+}

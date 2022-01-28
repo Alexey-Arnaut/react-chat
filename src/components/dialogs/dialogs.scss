@@ -5,6 +5,9 @@
     height: 100vh;
     border-right: 1px solid #2d2d2d;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .dialog {
@@ -35,12 +38,37 @@
 
 .dialog__avatar {
     margin-right: 10px;
+    max-width: 54px;
+    min-width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     img {
         width: 54px;
         height: 54px;
         border-radius: 50%;
     }
+}
+
+.dialog__avatar-no {
+    border: 2px solid #FFFFFF;
+
+    p {
+        font-size: 22px;
+        font-weight: 700;
+    }
+}
+
+.dialog__avatar-img {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
 .dialog__info {
@@ -73,4 +101,64 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.current-user {
+    display: flex;
+    align-items: center;
+    background-color: #2c2c2c;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.search-user {
+    margin-top: 15px;
+}
+
+.current-user__avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.current-user__avatar-no {
+    border: 2px solid #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        font-size: 22px;
+        font-weight: 700;
+    }
+}
+
+.current-user__avatar-img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.current-user__info-full-name {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.current-user__info-id {
+    font-size: 14px;
+}
+
+.dialogs__list {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.dialogs__list-info {
+    height: calc(100vh - 140px) !important;
 }

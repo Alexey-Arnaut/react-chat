@@ -7,6 +7,7 @@ import { signInUser } from '../../store/slices/authSlice';
 import { AuthForm } from '../../components/authForm';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
+import { Information } from '../../components/ui/information';
 
 export const SignIn: React.FC = () => {
   const [email, setEmail] = React.useState('')
@@ -14,6 +15,7 @@ export const SignIn: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const uid = useAppSelector(state => state.auth.uid)
+  const loading = useAppSelector(state => state.auth.loading)
 
   const signIn = (e: any) => {
     e.preventDefault()
@@ -48,6 +50,12 @@ export const SignIn: React.FC = () => {
       }))
     }
   }, [uid])
+
+  if (loading) {
+    return (
+      <Information text='Загрузка...' />
+    )
+  }
 
   return (
     <AuthForm title="Войти в аккаунт" link='sign-up' linkText="Еще нет аккаунта?">
