@@ -23,7 +23,7 @@ export const Messages: React.FC = () => {
         if (id && uid) {
             dispatch(getMessages(({ id, uid })))
         }
-    }, [id])
+    }, [id, uid, dispatch])
 
     return (
         <div className='chat__messages' ref={chatRef}>

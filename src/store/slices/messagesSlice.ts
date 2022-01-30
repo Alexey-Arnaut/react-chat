@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { db } from "../../firebase";
-import { collection, onSnapshot, orderBy, query, addDoc, Timestamp } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query, addDoc, Timestamp, setDoc, doc, updateDoc, where } from 'firebase/firestore';
 interface IGetMessages {
     from: string,
     to: string,
@@ -46,6 +46,18 @@ export const sendMessage = createAsyncThunk(
             text: value,
             from: uid,
             to: id,
+            createdAt: Timestamp.fromDate(new Date()),
+            pictures: pictures
+        })
+
+        await updateDoc(doc(db, 'chat', uid + id), {
+            text: value,
+            createdAt: Timestamp.fromDate(new Date()),
+            pictures: pictures
+        })
+
+        await updateDoc(doc(db, 'chat', id + uid), {
+            text: value,
             createdAt: Timestamp.fromDate(new Date()),
             pictures: pictures
         })

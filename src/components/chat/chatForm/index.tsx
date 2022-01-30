@@ -66,8 +66,11 @@ export const ChatForm: React.FC = () => {
                 meInfo: meInfo,
                 id: dialogId,
                 uid,
+                value: value || '',
+                pictures: url || []
             }))
         }
+
     }
 
     React.useEffect(() => {

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase";
-import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, onSnapshot, doc, setDoc, Timestamp } from "firebase/firestore";
 
 export const getUserInfo = createAsyncThunk(
     'user/getUserInfo',
@@ -40,22 +40,55 @@ export const getMeInfo = createAsyncThunk(
 export const userFriends = createAsyncThunk(
     'user/userFriends',
 
-    async ({ userInfo, meInfo, uid, id }: any) => {
-        await addDoc(collection(db, 'friends', uid, 'friends'), {
-            createdAt: userInfo.createdAt,
-            fullName: userInfo.fullName,
-            id: userInfo.uid,
-            text: '',
-            userAvatar: userInfo.userAvatar
-        })
+    async ({ userInfo, meInfo, uid, id, value, pictures }: any) => {
 
-        await addDoc(collection(db, 'friends', id, 'friends'), {
-            createdAt: meInfo.createdAt,
-            fullName: meInfo.fullName,
-            id: meInfo.uid,
-            text: '',
-            userAvatar: meInfo.userAvatar
+        // me
+        await setDoc(doc(db, "chat", uid + id), {
+            uid: uid,
+            friend: id,
+            userAvatar: userInfo.userAvatar,
+            value,
+            pictures,
+            commonId: uid + id,
+            createdAt: Timestamp.fromDate(new Date()),
+            fullName: userInfo.fullName
+        });
+
+        //friend
+        await setDoc(doc(db, 'chat', id + uid), {
+            uid: id,
+            friend: uid,
+            userAvatar: meInfo.userAvatar,
+            value,
+            pictures,
+            commonId: id + uid,
+            createdAt: Timestamp.fromDate(new Date()),
+            fullName: meInfo.fullName
         })
+    }
+)
+
+export const resultUserSearch = createAsyncThunk(
+    'user/resultUserSearch',
+
+    async (value: string, { dispatch }) => {
+
+        onSnapshot(query(collection(db, "users"), where("searchId", "==", value)), (querySnapshot) => {
+            const data: any = []
+
+            querySnapshot.forEach((doc) => {
+                const { fullName, userAvatar, uid, searchId } = doc.data()
+
+                data.push({
+                    fullName,
+                    userAvatar,
+                    uid,
+                    searchId,
+                })
+            });
+
+            dispatch(foundUser(data))
+        });
     }
 )
 
@@ -63,7 +96,8 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         userInfo: [],
-        meInfo: []
+        meInfo: [],
+        foundUser: []
     },
     reducers: {
         userInfo(state, action) {
@@ -71,9 +105,12 @@ const userSlice = createSlice({
         },
         meInfo(state, action) {
             state.meInfo = action.payload
-        }
+        },
+        foundUser(state, action) {
+            state.foundUser = action.payload
+        },
     }
 })
 
-export const { userInfo, meInfo } = userSlice.actions
+export const { userInfo, meInfo, foundUser } = userSlice.actions
 export default userSlice.reducer

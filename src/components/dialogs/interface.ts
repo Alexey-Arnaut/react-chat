@@ -3,7 +3,7 @@ export interface IDialog {
     createdAt: number,
     from: string,
     fullName: string,
-    id: string,
+    friend: string,
     pictures?: string[],
     text: string,
     to: string

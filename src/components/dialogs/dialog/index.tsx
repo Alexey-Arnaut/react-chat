@@ -3,22 +3,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { selectedDialog } from '../../../store/slices/dialogIdSlice';
+import { getUserInfo } from '../../../store/slices/userSlice';
 
 import moment from 'moment';
 import 'moment/locale/ru'
 
 import { IDialog } from '../interface'
 
-export const Dialog: React.FC<IDialog> = ({ id, userAvatar, fullName, text, createdAt }) => {
+export const Dialog: React.FC<IDialog> = ({ friend, userAvatar, fullName, text, createdAt }) => {
     const dispatch = useAppDispatch()
     const dialogId = useAppSelector(state => state.dialogId.id)
 
     const selectedChat = (id: string) => {
         dispatch(selectedDialog(id))
+        dispatch(getUserInfo(id))
     }
 
     return (
-        <Link to={id} className={`dialog ${dialogId === id ? 'dialog--active' : ''}`} onClick={() => selectedChat(id)}>
+        <Link to={friend} className={`dialog ${dialogId === friend ? 'dialog--active' : ''}`} onClick={() => selectedChat(friend)}>
             <div className={`dialog__avatar ${!userAvatar && 'dialog__avatar-no'}`}>
                 {userAvatar ?
                     <div
