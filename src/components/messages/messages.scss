@@ -26,6 +26,7 @@
 
     .chat__message-container {
         border-radius: 10px 10px 0;
+        background-color: #8774e1;
     }
 
     .chat__message-date {
@@ -33,7 +34,7 @@
     }
 
     .chat__message-edit {
-        left: -15px;
+        left: -45px;
     }
 }
 
@@ -41,8 +42,15 @@
     max-width: 480px;
     padding: 10px;
     border-radius: 10px 10px 10px 0;
-    background-color: #8774e1;
+    background-color: #212121;
     position: relative;
+
+    &:hover {
+
+        .chat__message-edit {
+            opacity: 1;
+        }
+    }
 }
 
 .chat__message-text {
@@ -109,4 +117,48 @@
     font-size: 12px;
     width: 100%;
     text-align: right;
+}
+
+.chat__message-edit {
+    position: absolute;
+    min-width: 40px;
+    max-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: 50%;
+    margin-top: -20px;
+    right: -45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+
+    span {
+        display: block;
+        position: relative;
+        width: 6px;
+        height: 6px;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+
+        &::before,
+        &::after {
+            position: absolute;
+            content: '';
+            width: 6px;
+            height: 6px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            left: 0;
+        }
+
+        &::before {
+            top: -10px;
+        }
+
+        &::after {
+            bottom: -10px;
+        }
+
+    }
 }

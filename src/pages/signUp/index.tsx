@@ -111,15 +111,15 @@ export const SignUp: React.FC = () => {
                     accept='image/*'
                     id='photo'
                 />
-                {userPhotoPreview ?
-                    <div
-                        className="auth-form__container-photo"
-                        style={{ backgroundImage: `url(${userPhotoPreview})` }}
-                    ></div>
-                    :
-                    <div className="auth-form__container-photo"></div>
-                }
                 <label htmlFor="photo">
+                    {userPhotoPreview ?
+                        <div
+                            className="auth-form__container-photo"
+                            style={{ backgroundImage: `url(${userPhotoPreview})` }}
+                        ></div>
+                        :
+                        <div className="auth-form__container-photo"></div>
+                    }
                     <p>Загрузить фото</p>
                 </label>
             </div>
