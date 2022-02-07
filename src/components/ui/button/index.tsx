@@ -6,13 +6,13 @@ import { IButton } from './interface'
 
 import './button.scss'
 
-export const Button: React.FC<IButton> = ({ text, className, handleClick }) => {
+export const Button: React.FC<IButton> = ({ children, className, handleClick }) => {
     return (
         <button
             className={classNames('button', className)}
             onClick={handleClick}
         >
-            {text}
+            {children}
         </button >
     );
 };

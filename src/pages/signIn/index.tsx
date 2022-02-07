@@ -74,11 +74,7 @@ export const SignIn: React.FC = () => {
         required
       />
 
-      <Button
-        className='auth-form__button'
-        text='Войти'
-        handleClick={signIn}
-      />
+      <Button className='auth-form__button' handleClick={signIn} >Войти</Button>
     </AuthForm>
   );
 };

@@ -67,7 +67,7 @@ export const Dialogs: React.FC = () => {
         </div>
       }
       <div className="dialogs__list">
-        {dialogs.length !== 0 ?
+        {dialogs.length ?
           dialogs.slice().sort((a: any, b: any) => b.createdAt - a.createdAt).map((dialog, index) => (
             <Dialog {...dialog} key={index} />
           ))

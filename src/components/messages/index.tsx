@@ -32,11 +32,9 @@ export const Messages: React.FC = () => {
     return (
         <div className='chat__messages'>
             {messages.length ?
-                <>
-                    {messages.slice().sort((a: any, b: any) => a.createdAt - b.createdAt).map((message: IMessage) => (
-                        <Message {...message} key={message.id} editMessage={editMessage} />
-                    ))}
-                </>
+                messages.slice().sort((a: any, b: any) => a.createdAt - b.createdAt).map((message: IMessage) => (
+                    <Message {...message} key={message.id} editMessage={editMessage} />
+                ))
                 :
                 <Information text='Начните диалог' className='chat__messages-information' />
             }

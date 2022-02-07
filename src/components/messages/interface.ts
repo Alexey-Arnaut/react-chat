@@ -4,7 +4,14 @@ export interface IMessage {
     text: string,
     pictures?: string[],
     createdAt: number,
-    editMessage: (id: string) => void
+    audio: string,
+    editMessage: (id: string) => void,
+    audioDuration: IAudioDuration | ''
+}
+
+interface IAudioDuration {
+    minutes: number,
+    seconds: number,
 }
 
 export interface IMessagePictures {

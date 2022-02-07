@@ -7,9 +7,11 @@ import { getUserInfo } from '../../../store/slices/userSlice';
 import moment from 'moment';
 import 'moment/locale/ru'
 
+import { DialogLastMesssgeInfo } from '../dialogLastMessageInfo';
+
 import { IDialog } from '../interface'
 
-export const Dialog: React.FC<IDialog> = ({ uid, friend, userAvatar, fullName, text, createdAt, pictures }) => {
+export const Dialog: React.FC<IDialog> = ({ uid, friend, userAvatar, fullName, text, createdAt, pictures, audio }) => {
     const dispatch = useAppDispatch()
     const dialogId = useAppSelector(state => state.dialogId.id)
 
@@ -39,26 +41,7 @@ export const Dialog: React.FC<IDialog> = ({ uid, friend, userAvatar, fullName, t
                 </div>
                 <div className="dialog__info-bottom">
                     <div className="dialog__info-last-message">
-                        {text?.length === 0 ?
-                            pictures?.length === 1 ?
-                                <div className="dialog__info-last-message-picture">
-                                    <div
-                                        className="dialog__info-last-message-img"
-                                        style={{ backgroundImage: `url(${pictures})` }}
-                                    ></div>
-                                    <div className="dialog__info-last-message-text">{text.length === 0 ? "Фото" : text}</div>
-                                </div>
-                                :
-                                <div className="dialog__info-last-message-picture">
-                                    <div
-                                        className="dialog__info-last-message-img"
-                                        style={{ backgroundImage: `url(${pictures})` }}
-                                    ></div>
-                                    <div className="dialog__info-last-message-text">Альбом</div>
-                                </div>
-                            :
-                            <div className="dialog__info-last-message-text">{text}</div>
-                        }
+                        <DialogLastMesssgeInfo text={text} pictures={pictures} audio={audio} />
                     </div>
                 </div>
             </div>

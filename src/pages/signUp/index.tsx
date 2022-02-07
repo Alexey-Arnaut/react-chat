@@ -124,11 +124,7 @@ export const SignUp: React.FC = () => {
                 </label>
             </div>
 
-            <Button
-                className='auth-form__button'
-                text='Зарегестрироваться'
-                handleClick={registUser}
-            />
+            <Button className='auth-form__button' handleClick={registUser}>Зарегестрироваться</Button>
         </AuthForm>
     );
 };

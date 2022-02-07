@@ -5,9 +5,10 @@ export interface IDialog {
     from: string,
     fullName: string,
     friend: string,
-    pictures?: string[],
+    pictures: string[] | [],
     text: string,
     to: string,
+    audio: string
 }
 
 export interface IDialogsCurrentUser {
@@ -21,4 +22,10 @@ export interface IDialogsSearchUser {
     userAvatar?: string,
     fullName: string,
     searchId: string
+}
+
+export interface IDialogLastMessageInfo {
+    text: string,
+    pictures: string[] | [],
+    audio: string
 }

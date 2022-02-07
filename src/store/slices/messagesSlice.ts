@@ -2,13 +2,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { db } from "../../firebase";
 import { collection, onSnapshot, query, addDoc, Timestamp, doc, updateDoc, where, deleteDoc } from 'firebase/firestore';
+
+interface IAudioDuration {
+    minutes: number,
+    seconds: number,
+}
 interface IGetMessages {
     from: string,
     to: string,
     text: string,
     createdAt: number,
     id: string,
-    pictures: string
+    pictures: string,
+    audio: string,
+    audioDuration: IAudioDuration | ''
 }
 
 export const getMessages = createAsyncThunk(
@@ -20,7 +27,7 @@ export const getMessages = createAsyncThunk(
             const data: IGetMessages[] = []
 
             querySnapshot.forEach((doc) => {
-                const { createdAt, from, to, text, pictures } = doc.data()
+                const { createdAt, from, to, text, pictures, audio, audioDuration } = doc.data()
 
                 data.push({
                     from,
@@ -28,7 +35,9 @@ export const getMessages = createAsyncThunk(
                     text,
                     createdAt: createdAt.seconds,
                     id: doc.id,
-                    pictures
+                    pictures,
+                    audio,
+                    audioDuration
                 })
             });
 
@@ -40,7 +49,7 @@ export const getMessages = createAsyncThunk(
 
 export const sendMessage = createAsyncThunk(
     'messages/sendMessage',
-    async ({ id, value, uid, pictures }: any) => {
+    async ({ id, value, uid, pictures, audio, audioDuration }: any) => {
         const selectChat = uid > id ? `${uid + id}` : `${id + uid}`
 
         await addDoc(collection(db, 'messages'), {
@@ -48,20 +57,26 @@ export const sendMessage = createAsyncThunk(
             from: uid,
             to: id,
             createdAt: Timestamp.fromDate(new Date()),
-            pictures: pictures,
-            commonId: selectChat
+            pictures,
+            commonId: selectChat,
+            audio,
+            audioDuration
         })
 
         await updateDoc(doc(db, 'chat', uid + id), {
             text: value,
             createdAt: Timestamp.fromDate(new Date()),
-            pictures: pictures,
+            pictures,
+            audio,
+            audioDuration
         })
 
         await updateDoc(doc(db, 'chat', id + uid), {
             text: value,
             createdAt: Timestamp.fromDate(new Date()),
-            pictures: pictures,
+            pictures,
+            audio,
+            audioDuration
         })
     }
 )
@@ -69,20 +84,44 @@ export const sendMessage = createAsyncThunk(
 export const saveChangeMessage = createAsyncThunk(
     'messages/saveChangeMessage',
 
-    async ({ value, id }: any) => {
+    async ({ value, messageId, id, uid, lastMessageId }: any) => {
 
-        await updateDoc(doc(db, 'messages', id), {
+        await updateDoc(doc(db, 'messages', messageId), {
             text: value,
         })
+
+        if (messageId === lastMessageId) {
+            await updateDoc(doc(db, 'chat', uid + id), {
+                text: value,
+            })
+
+            await updateDoc(doc(db, 'chat', id + uid), {
+                text: value,
+            })
+        }
     }
 )
 
 export const deleteMessage = createAsyncThunk(
     'messages/deleteMessage',
 
-    async (id: string) => {
+    async ({ value, messageId, id, uid, pictures, audio, createdAt }: any) => {
 
-        await deleteDoc(doc(db, "messages", id));
+        await deleteDoc(doc(db, "messages", messageId));
+
+        await updateDoc(doc(db, 'chat', uid + id), {
+            text: value,
+            pictures,
+            audio,
+            createdAt
+        })
+
+        await updateDoc(doc(db, 'chat', id + uid), {
+            text: value,
+            pictures,
+            audio,
+            createdAt
+        })
     }
 )
 
