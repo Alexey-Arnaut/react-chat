@@ -3,7 +3,6 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getDialogs } from '../../store/slices/dialogsSlice';
 import { getMeInfo, resultUserSearch } from '../../store/slices/userSlice';
-import { sendMessage } from '../../store/slices/messagesSlice';
 
 import { Input } from '../ui/input';
 import { Dialog } from './dialog';

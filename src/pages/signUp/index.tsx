@@ -38,14 +38,16 @@ export const SignUp: React.FC = () => {
                 url = await getDownloadURL(ref(storage, snap.ref.fullPath));
             }
 
-            dispatch(signUpUser({
-                email,
-                password,
-                uid,
-                name,
-                lastName,
-                userAvatar: url || ''
-            }))
+            if (uid) {
+                dispatch(signUpUser({
+                    email,
+                    password,
+                    uid,
+                    name,
+                    lastName,
+                    userAvatar: url || ''
+                }))
+            }
 
             if (uid !== null) {
                 navigate('/')
@@ -58,7 +60,7 @@ export const SignUp: React.FC = () => {
             navigate('/')
             localStorage.setItem('user', JSON.stringify({ email, password }))
         }
-    }, [uid])
+    }, [uid, email, navigate, password])
 
     React.useEffect(() => {
 

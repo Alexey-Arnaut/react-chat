@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
         if (dialogId === null) {
             navigate('/')
         }
-    }, [dialogId])
+    }, [dialogId, navigate])
 
     return (
         <div className='wrapper'>

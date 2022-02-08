@@ -14,6 +14,30 @@ interface IAudioDuration {
     seconds: number,
 }
 
-export interface IMessagePictures {
-    pictures: string[]
+export interface IMessageBuble {
+    className?: string
 }
+
+export interface IMessageText {
+    text: string,
+    createdAt: number
+}
+
+export interface IMessagePictures {
+    pictures: string[],
+    createdAt: number,
+    text: string
+}
+
+export interface IMessagePicture {
+    picture: string,
+    className?: string
+}
+
+export interface IMessageAudio {
+    audio: string,
+    minutes: number,
+    seconds: number,
+    createdAt: number
+}
+

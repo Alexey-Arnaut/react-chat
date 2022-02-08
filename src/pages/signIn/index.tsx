@@ -49,7 +49,7 @@ export const SignIn: React.FC = () => {
         password
       }))
     }
-  }, [uid])
+  }, [uid, dispatch, email, navigate, password])
 
   if (loading) {
     return (

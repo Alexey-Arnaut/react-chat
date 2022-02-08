@@ -4,9 +4,11 @@ import { db } from '../../firebase'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
 
+import { ISignInUser, ISignUpUser } from "../inteface";
+
 export const signInUser = createAsyncThunk(
     'auth/signInUser',
-    async ({ email, password }: any, { dispatch }) => {
+    async ({ email, password }: ISignInUser, { dispatch }) => {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -22,7 +24,7 @@ export const signInUser = createAsyncThunk(
 
 export const signUpUser = createAsyncThunk(
     'auth/signUpUser',
-    async ({ email, password, name, lastName, userAvatar }: any, { dispatch }) => {
+    async ({ email, password, name, lastName, userAvatar }: ISignUpUser, { dispatch }) => {
         const auth = getAuth();
         await createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
